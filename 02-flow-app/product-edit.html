@@ -12,26 +12,29 @@
   <body>
     <div class="container-fluid" ng-controller="productsEditCtrl">
       <h1>Product Site Maintenance</h1>
-      <div class="row">
-        <div class="col-sm-12">
-          <button class="btn btn-primary btn-lg">
-            Add new product
-          </button>
-        </div>
-      </div>
-      <h2>List of products</h2>
-      <div class="row" ng-repeat="product in products" ng-class="{oddRow: $index % 2 == 0}">
-        <div class="col-sm-8">
-          <h4>{{$index + 1}}: {{product}}</h4>
-        </div>
-        <div class="col-sm-4" style="margin-top: 5px;">
-          <div class="pull-right">
-            <button class="btn btn-warning btn-sm">
-              Edit
+
+      <div ng-show="view=='list'">
+        <div class="row">
+          <div class="col-sm-12">
+            <button class="btn btn-primary btn-lg">
+              Add new product
             </button>
-            <button class="btn btn-danger btn-sm">
-              Delete
-            </button>
+          </div>
+        </div>
+        <h2>List of products</h2>
+        <div class="row" ng-repeat="product in products" ng-class="{oddRow: $index % 2 == 0}">
+          <div class="col-sm-8">
+            <h4>{{$index + 1}}: {{product}}</h4>
+          </div>
+          <div class="col-sm-4" style="margin-top: 5px;">
+            <div class="pull-right">
+              <button class="btn btn-warning btn-sm">
+                Edit
+              </button>
+              <button class="btn btn-danger btn-sm">
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -44,6 +47,11 @@
 
       function ProductsEditCtrl($scope) {
         $scope.products = products;
+        setView('list');
+
+        function setView(view) {
+          $scope.view = view;
+        }
       }
     </script>
   </body>
