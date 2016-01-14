@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="maintenance">
+  <head>
+    <meta charset="utf-8">
+    <title>Product Sites</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/site.css" rel="stylesheet" />
+  </head>
+  <body ng-controller="adminCtrl">
+    <!-- navigation header -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapsed" data-target="#adminMenu" name="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar" ></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" ng-click="showMain()" >
+          Amazing Admin :D
+        </a>
+        <div class="collapse navbar-collapse" id="adminMenu">
+          <ul class="nav navbar-nav">
+            <li ng-class="{active: isActive('Locations')}" >
+              <a href="#" ng-click="showLocations()">Locations</a>
+            </li>
+            <li ng-class="{active: isActive('Sites')}" >
+              <a href="#" ng-click="showProductSites()">Product Sites</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Optional title bar -->
+    <div class="current-spot">
+      <div class="container-fluid">
+        <div class="container">
+          <div ng-show="view=='locations'">
+            <h3>Manage the list of products locations</h3>
+          </div>
+          <div ng-show="view='productSites'">
+            <h3>Manage the list of products sites</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View content -->
+    <div class="main-content">
+      <div class="container-fluid">
+        <div class="container">
+          <div ng-show="view=='main'">
+            <p>Main content</p>
+          </div>
+          <div ng-show="view=='locations'">
+            <p>Locations content</p>
+          </div>
+          <div ng-show="view=='productSites'">
+            <p>Product sites content</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  </body>
+</html>
