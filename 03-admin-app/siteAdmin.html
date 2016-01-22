@@ -17,16 +17,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#" ng-click="showMain()" >
+        <a class="navbar-brand" href="#/main" >
           Amazing Admin :D
         </a>
         <div class="collapse navbar-collapse" id="adminMenu">
           <ul class="nav navbar-nav">
             <li ng-class="{active: isActive('Locations')}" >
-              <a href="#/locations" ng-click="showLocations()">Locations</a>
+              <a href="#/locations">Locations</a>
             </li>
             <li ng-class="{active: isActive('Sites')}" >
-              <a href="#/sites" ng-click="showProductSites()">Product Sites</a>
+              <a href="#/sites">Product Sites</a>
             </li>
           </ul>
         </div>
@@ -35,14 +35,9 @@
 
     <!-- Optional title bar -->
     <div class="current-spot">
-      <div class="container-fluid">
+      <div class="container-fluid" ng-show="!isActive('')">
         <div class="container">
-          <div ng-show="view=='locations'">
-            <h3>Manage the list of products locations</h3>
-          </div>
-          <div ng-show="view=='productSites'">
-            <h3>Manage the list of products sites</h3>
-          </div>
+          <h3>{{getTitle()}}</h3>
         </div>
       </div>
     </div>
