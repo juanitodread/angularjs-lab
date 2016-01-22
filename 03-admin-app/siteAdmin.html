@@ -23,10 +23,10 @@
         <div class="collapse navbar-collapse" id="adminMenu">
           <ul class="nav navbar-nav">
             <li ng-class="{active: isActive('Locations')}" >
-              <a href="#" ng-click="showLocations()">Locations</a>
+              <a href="#/locations" ng-click="showLocations()">Locations</a>
             </li>
             <li ng-class="{active: isActive('Sites')}" >
-              <a href="#" ng-click="showProductSites()">Product Sites</a>
+              <a href="#/sites" ng-click="showProductSites()">Product Sites</a>
             </li>
           </ul>
         </div>
@@ -51,14 +51,7 @@
     <div class="main-content">
       <div class="container-fluid">
         <div class="container">
-          <div ng-show="view=='main'">
-            <p>Main content</p>
-          </div>
-          <div ng-show="view=='locations'">
-            <p>Locations content</p>
-          </div>
-          <div ng-show="view=='productSites'">
-            <p>Product sites content</p>
+          <div ng-view>
           </div>
         </div>
       </div>
@@ -66,6 +59,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
     <script src="js/maintenance.js"></script>
   </body>
 </html>
