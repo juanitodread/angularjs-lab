@@ -5,6 +5,7 @@ angular.module("maintenance", ["ngRoute"])
   .controller("sitesCtrl", SitesCtrl)
   .factory("currentSpot", currentSpot)
   .directive("ywActiveMenu", ywActiveMenu)
+  .directive("ywMenuId", ywMenuId)
   .config(function($routeProvider){
     $routeProvider.when("/locations", {
       templateUrl: "views/locations.html",
@@ -27,6 +28,32 @@ function ywActiveMenu(currentSpot) {
     var activeMenuId = attrs["ywActiveMenu"];
     var activeTitle  = attrs["ywActiveTitle"];
     currentSpot.setCurrentSpot(activeMenuId, activeTitle);
+  }
+}
+
+function ywMenuId(currentSpot) {
+  var menuElements = [];
+
+  function setActive(element, menuId) {
+    if(currentSpot.getActiveMenu() == menuId) {
+      element.addClass("active");
+    } else {
+      element.removeClass("active");
+    }
+  }
+
+  return function(scope, element, attrs) {
+    var menuId = attrs["ywMenuId"];
+    menuElements.push({ id: menuId, node: element});
+
+    var watcherFn = function(watchScope) {
+      return watchScope.$eval("getActiveMenu()");
+    }
+    scope.$watch(watcherFn, function(newVale, oldValue) {
+      for(var element in menuElements) {
+        setActive(menuElements[element].node, menuElements[element].id);
+      }
+    });
   }
 }
 
