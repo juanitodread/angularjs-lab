@@ -4,6 +4,7 @@ angular.module("maintenance", ["ngRoute"])
   .controller("locationsCtrl", LocationsCtrl)
   .controller("sitesCtrl", SitesCtrl)
   .factory("currentSpot", currentSpot)
+  .directive("ywActiveMenu", ywActiveMenu)
   .config(function($routeProvider){
     $routeProvider.when("/locations", {
       templateUrl: "views/locations.html",
@@ -20,6 +21,14 @@ angular.module("maintenance", ["ngRoute"])
       controller: "mainCtrl"
     });
   });
+
+function ywActiveMenu(currentSpot) {
+  return function (scope, element, attrs) {
+    var activeMenuId = attrs["ywActiveMenu"];
+    var activeTitle  = attrs["ywActiveTitle"];
+    currentSpot.setCurrentSpot(activeMenuId, activeTitle);
+  }
+}
 
 function currentSpot() {
   var activeMenuId = "";
@@ -53,13 +62,10 @@ function AdminCtrl($scope, currentSpot) {
 }
 
 function MainCtrl(currentSpot) {
-  currentSpot.setCurrentSpot("", "");
 }
 
 function LocationsCtrl(currentSpot) {
-  currentSpot.setCurrentSpot("Locations", "Manage the list of product locations");
 }
 
 function SitesCtrl(currentSpot) {
-  currentSpot.setCurrentSpot("Sites", "Manage the list of product sites");
 }
