@@ -3,7 +3,26 @@ angular.module("dive-log", [])
        .factory("diveLogService", diveLogService);
 
 function DiveLogController($scope, diveLogService) {
-  $scope.dives = diveLogService.getDives();
+  $scope.dives = [];
+  $scope.isLoading = isLoading;
+  $scope.refreshDives = refreshDives;
+
+  var loading = false;
+
+  function isLoading() {
+    return loading;
+  }
+
+  function refreshDives() {
+    loading = true;
+    $scope.dives = [];
+    setTimeout(function() {
+      $scope.dives = diveLogService.getDives();
+      loading = false;
+      $scope.$apply();
+    }, 1000);
+  }
+
 }
 
 function diveLogService() {

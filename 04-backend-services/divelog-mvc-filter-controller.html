@@ -5,17 +5,23 @@
     <title>Dive Log MVC</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
   </head>
-  <body>
+  <body ng-controller="dive-log-controller">
     <div class="container-fluid">
       <h1>My Latest Dives (with API service)</h1>
       <div class="row">
-        <div class="col-sm-4 col-sm-offset-8">
+        <div class="col-sm-8">
+          <button type="button" class="btn btn-lg btn-primary" ng-click="refreshDives()">
+            Refresh
+          </button>
+          <img src="images/progressring.gif" alt="loading" ng-show="isLoading()" />
+        </div>
+        <div class="col-sm-4">
           <input class="form-control input-lg"
                  placeholder="Search"
                  ng-model="searchKey"/>
         </div>
       </div>
-      <div class="row" ng-controller="dive-log-controller">
+      <div class="row">
         <div class="col-sm-4" ng-repeat="dive in dives | filter:searchKey" >
           <h3>{{dive.site}}</h3>
           <h4>{{dive.location}}</h4>
