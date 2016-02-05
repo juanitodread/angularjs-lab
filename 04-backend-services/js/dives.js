@@ -4,6 +4,7 @@ angular.module("dive-log", [])
 
 function DiveLogController($scope, diveLogService) {
   $scope.dives = [];
+  $scope.errorMessage = "";
   $scope.isLoading = isLoading;
   $scope.refreshDives = refreshDives;
 
@@ -16,16 +17,19 @@ function DiveLogController($scope, diveLogService) {
   function refreshDives() {
     loading = true;
     $scope.dives = [];
-    setTimeout(function() {
-      $scope.dives = diveLogService.getDives();
+    diveLogService.getDives().then(function(data){
+      $scope.dives = data;
+      $scope.errorMessage = "";
       loading = false;
-      $scope.$apply();
-    }, 1000);
+    }, function(error){
+      $scope.errorMessage = error;
+      loading = false;
+    });
   }
 
 }
 
-function diveLogService() {
+function diveLogService($q) {
   var dives = [
     {
       site: "Instituto Tecnológico de Tepic",
@@ -45,10 +49,20 @@ function diveLogService() {
       depth: 98,
       time: 62
     }];
+    var counter = 0;
 
     return {
       getDives: function() {
-        return dives;
+        var deferred = $q.defer();
+        counter++;
+        setTimeout(function(){
+          if(counter % 3 == 0) {
+            deferred.reject("Error: Call counter is " + counter);
+          } else {
+            deferred.resolve(dives);
+          }
+        }, 1000);
+        return deferred.promise;
       }
     };
 
