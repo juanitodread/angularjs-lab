@@ -1,6 +1,7 @@
 angular.module("dive-log", [])
        .controller("dive-log-controller", DiveLogController)
-       .factory("diveLogService", diveLogService);
+       .factory("diveLogService", diveLogService)
+       .constant("apiUrl", "http://unraveling-ng.azurewebsites.net/");
 
 function DiveLogController($scope, diveLogService) {
   $scope.dives = [];
@@ -18,7 +19,7 @@ function DiveLogController($scope, diveLogService) {
     loading = true;
     $scope.dives = [];
     diveLogService.getDives().then(function(data){
-      $scope.dives = data;
+      $scope.dives = data.data;
       $scope.errorMessage = "";
       loading = false;
     }, function(error){
@@ -29,41 +30,11 @@ function DiveLogController($scope, diveLogService) {
 
 }
 
-function diveLogService($q) {
-  var dives = [
-    {
-      site: "Instituto Tecnológico de Tepic",
-      location: "Tepic, Nayarit México",
-      depth: 72,
-      time: 54
-    },
-    {
-      site: "Plaza San Rafael",
-      location: "Tepic, Nayarit México",
-      depth: 54,
-      time: 38
-    },
-    {
-      site: "Universidad Autónoma de Nayarit",
-      location: "Tepic, Nayarit México",
-      depth: 98,
-      time: 62
-    }];
-    var counter = 0;
-
+function diveLogService($http, apiUrl) {
     return {
       getDives: function() {
-        var deferred = $q.defer();
-        counter++;
-        setTimeout(function(){
-          if(counter % 3 == 0) {
-            deferred.reject("Error: Call counter is " + counter);
-          } else {
-            deferred.resolve(dives);
-          }
-        }, 1000);
-        return deferred.promise;
+        var url = apiUrl + "/api/backendtest/dives";
+        return $http.get(url);
       }
     };
-
 }
